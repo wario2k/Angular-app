@@ -1,38 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
-import { ProductListComponent } from './products/product-list.component';
-import { ConvertToSpacesPipe } from './shared/convert-to-spaces.pipe';
 import { StarComponent } from './shared/star.component';
 import { HttpClientModule} from '@angular/common/http';
-import { ProductDetailComponent } from './products/product-detail.component'
 import { WelcomeComponent } from './home/welcome.component';
 import { RouterModule }  from '@angular/router';
-import { ProductsGuardService } from './products/products-guard.service'
+import { ProductModule } from './products/product.module';
+import { AppRoutingModule } from './app-routing/app-routing.module';
 @NgModule({
   declarations: [
     AppComponent, //app modules,
-    ProductListComponent,
-    ConvertToSpacesPipe,
-    StarComponent,
-    ProductDetailComponent,
     WelcomeComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     HttpClientModule,
-    RouterModule.forRoot([
-      { path : 'products', component : ProductListComponent},
-      { path : 'products/:id',canActivate:[ProductsGuardService] ,component : ProductDetailComponent},
-      { path : 'welcome', component : WelcomeComponent},
-      { path : '', redirectTo:'welcome', pathMatch:'full'},
-      { path : '**', component : WelcomeComponent, pathMatch:'full'}
-    ])
+    ProductModule,
+    AppRoutingModule
      //external modules
   ],
-  providers: [ProductsGuardService],
-  bootstrap: [AppComponent] //startup component
+  bootstrap: [AppComponent] //root component
 })
 export class AppModule { }
